@@ -10,7 +10,7 @@
     "test:integration-build": "pnpm test:integration-prepare && pnpm test:integration-pretty",
     "test:integration-prepare": "cross-env NODE_OPTIONS=--experimental-vm-modules ts-node --project packages/tsconfig.settings.json ./scripts/prepare-integration-tests.ts",
     "test:integration-pretty": "prettier --write __tests__/shared/documentationExamples.ts",
-    "test:integration": "pnpm test:integration-build && pnpm test:ci",
+    "test:integration": "pnpm test:integration-build && pnpm vitest && pnpm test:ci",
     "test:ci": "pnpm test -- --coverage=true",
     "test": "cross-env NODE_NO_WARNINGS=1 cross-env NODE_OPTIONS=\"--experimental-vm-modules --experimental-import-meta-resolve\" jest",
     "test:watch": "pnpm test --watch --verbose",
