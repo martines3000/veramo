@@ -7,9 +7,7 @@ import { KeyManagementSystem } from '../../kms-local/src'
 import { IonDIDProvider } from '../src/ion-did-provider.js'
 import { ICreateIdentifierOpts } from '../src/types/ion-provider-types.js'
 
-import { jest } from '@jest/globals'
-
-jest.setTimeout(10000)
+import { vi, describe, expect, it } from 'vitest'
 
 const ionDIDProvider = new IonDIDProvider({
   defaultKms: 'mem',

@@ -1,16 +1,16 @@
 import { IAgentContext, VerifiableCredential, VerifiablePresentation } from '../../../core-types/src'
 import { ISelectiveDisclosureRequest } from '../types.js'
 import { SelectiveDisclosure } from '../action-handler.js'
-import { jest } from '@jest/globals'
+import { vi, describe, expect, it } from 'vitest'
 
 const actionHandler = new SelectiveDisclosure()
 
 const context = {
   agent: {
-    execute: jest.fn(),
-    availableMethods: jest.fn(),
-    getSchema: jest.fn(),
-    emit: jest.fn(),
+    execute: vi.fn(),
+    availableMethods: vi.fn(),
+    getSchema: vi.fn(),
+    emit: vi.fn(),
   },
 } as IAgentContext<any>
 

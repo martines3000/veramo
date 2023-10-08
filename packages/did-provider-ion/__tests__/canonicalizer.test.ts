@@ -1,4 +1,5 @@
 import { JsonCanonicalizer } from '../src/json-canonicalizer.js'
+import { describe, expect, it } from 'vitest'
 
 describe('canonicalizer result should be', () => {
   it('throwing an error on null input', () => {

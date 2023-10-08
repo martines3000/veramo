@@ -1,12 +1,12 @@
 import { Agent, createAgent } from '../agent.js'
 import { IAgentPlugin, IResolver } from '../../../core-types/src'
-import { jest } from '@jest/globals'
+import { vi, describe, expect, it } from 'vitest'
 
 describe('core agent', () => {
   it('should use plugin methods', async () => {
     const plugin: IAgentPlugin = {
       methods: {
-        doSomething: jest.fn(() => Promise.resolve()),
+        doSomething: vi.fn(() => Promise.resolve()),
       },
     }
     const agent = new Agent({
@@ -21,10 +21,10 @@ describe('core agent', () => {
   })
 
   it('should allow method overrides', async () => {
-    const doSomething = jest.fn()
+    const doSomething = vi.fn()
     const plugin: IAgentPlugin = {
       methods: {
-        doSomething: jest.fn(() => Promise.resolve()),
+        doSomething: vi.fn(() => Promise.resolve()),
       },
     }
     const agent = new Agent({
@@ -43,12 +43,12 @@ describe('core agent', () => {
   })
 
   it('should expose only authorized methods', async () => {
-    const doSomething = jest.fn()
-    const baz = jest.fn()
+    const doSomething = vi.fn()
+    const baz = vi.fn()
     const plugin: IAgentPlugin = {
       methods: {
-        foo: jest.fn(() => Promise.resolve()),
-        bar: jest.fn(() => Promise.resolve()),
+        foo: vi.fn(() => Promise.resolve()),
+        bar: vi.fn(() => Promise.resolve()),
       },
     }
     const agent = new Agent({
@@ -80,7 +80,7 @@ describe('core agent', () => {
   it('should pass through context', async () => {
     const plugin: IAgentPlugin = {
       methods: {
-        doSomething: jest.fn(() => Promise.resolve()),
+        doSomething: vi.fn(() => Promise.resolve()),
       },
     }
     const agent = new Agent({

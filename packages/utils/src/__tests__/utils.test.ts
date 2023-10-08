@@ -1,4 +1,5 @@
 import { asArray, isDefined } from '../type-utils.js'
+import { describe, expect, it } from 'vitest'
 
 describe('@veramo/utils type utils', () => {
   it('isDefined should return correct results', () => {

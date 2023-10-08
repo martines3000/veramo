@@ -1,12 +1,12 @@
-import { jest } from '@jest/globals'
+import { vi, describe, expect, it } from 'vitest'
 
 // // Mock must come before imports with transitive dependency.
 // jest.unstable_mockModule('did-jwt-vc', () => ({
-//   createVerifiableCredentialJwt: jest.fn(() => Promise.resolve('mockVcJwt')),
-//   createVerifiablePresentationJwt: jest.fn(() => Promise.resolve('mockVcJwt')),
-//   verifyCredential: jest.fn(() => Promise.resolve({ payload: {} })),
-//   normalizeCredential: jest.fn(() => Promise.resolve('mockCredential')),
-//   normalizePresentation: jest.fn(() => Promise.resolve('mockPresentation')),
+//   createVerifiableCredentialJwt: vi.fn(() => Promise.resolve('mockVcJwt')),
+//   createVerifiablePresentationJwt: vi.fn(() => Promise.resolve('mockVcJwt')),
+//   verifyCredential: vi.fn(() => Promise.resolve({ payload: {} })),
+//   normalizeCredential: vi.fn(() => Promise.resolve('mockCredential')),
+//   normalizePresentation: vi.fn(() => Promise.resolve('mockPresentation')),
 // }))
 
 import {
@@ -72,13 +72,13 @@ const mockIdentifiers: IIdentifier[] = [
 const w3c = new CredentialPlugin()
 
 let agent = {
-  execute: jest.fn(),
-  availableMethods: jest.fn(),
-  resolveDid: jest.fn(),
-  getDIDComponentById: jest.fn(),
-  emit: jest.fn(),
-  keyManagerSign: jest.fn(async (args): Promise<string> => 'mockJWT'),
-  keyManagerGet: jest.fn(
+  execute: vi.fn(),
+  availableMethods: vi.fn(),
+  resolveDid: vi.fn(),
+  getDIDComponentById: vi.fn(),
+  emit: vi.fn(),
+  keyManagerSign: vi.fn(async (args): Promise<string> => 'mockJWT'),
+  keyManagerGet: vi.fn(
     async (args): Promise<IKey> => ({
       kid: '',
       kms: '',
@@ -86,22 +86,22 @@ let agent = {
       publicKeyHex: '',
     }),
   ),
-  dataStoreSaveVerifiableCredential: jest.fn(async (args): Promise<boolean> => true),
-  dataStoreSaveVerifiablePresentation: jest.fn(async (args): Promise<boolean> => true),
-  getSchema: jest.fn(),
-  didManagerGet: jest.fn(),
-  didManagerFind: jest.fn(),
-  createVerifiableCredentialLD: jest.fn(),
-  createVerifiablePresentationLD: jest.fn(),
-  verifyCredentialLD: jest.fn(),
-  verifyPresentationLD: jest.fn(),
+  dataStoreSaveVerifiableCredential: vi.fn(async (args): Promise<boolean> => true),
+  dataStoreSaveVerifiablePresentation: vi.fn(async (args): Promise<boolean> => true),
+  getSchema: vi.fn(),
+  didManagerGet: vi.fn(),
+  didManagerFind: vi.fn(),
+  createVerifiableCredentialLD: vi.fn(),
+  createVerifiablePresentationLD: vi.fn(),
+  verifyCredentialLD: vi.fn(),
+  verifyPresentationLD: vi.fn(),
 } as any as TAgent<IResolver & IDIDManager & IKeyManager & ICredentialPlugin & IDataStore>
 
 describe('@veramo/credential-w3c', () => {
-  test.each(mockIdentifiers)('handles createVerifiableCredential', async (mockIdentifier) => {
+  it.each(mockIdentifiers)('handles createVerifiableCredential', async (mockIdentifier) => {
     expect.assertions(3)
 
-    agent.didManagerGet = jest.fn(async (args): Promise<IIdentifier> => mockIdentifier)
+    agent.didManagerGet = vi.fn(async (args): Promise<IIdentifier> => mockIdentifier)
     const context = { agent }
 
     const credential: CredentialPayload = {
@@ -135,10 +135,10 @@ describe('@veramo/credential-w3c', () => {
     expect(vc.id).toEqual('vc1')
   })
 
-  test.each(mockIdentifiers)('handles createVerifiablePresentation', async (mockIdentifier) => {
+  it.each(mockIdentifiers)('handles createVerifiablePresentation', async (mockIdentifier) => {
     expect.assertions(3)
 
-    agent.didManagerGet = jest.fn(async (args): Promise<IIdentifier> => mockIdentifier)
+    agent.didManagerGet = vi.fn(async (args): Promise<IIdentifier> => mockIdentifier)
     const context = { agent }
 
     const credential = await w3c.createVerifiableCredential(

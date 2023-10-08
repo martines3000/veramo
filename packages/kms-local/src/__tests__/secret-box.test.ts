@@ -1,4 +1,6 @@
 import { SecretBox } from '../secret-box.js'
+import { describe, it, expect } from 'vitest'
+
 // import * as elliptic from 'elliptic'
 // import * as hash from 'hash.js'
 

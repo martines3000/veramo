@@ -5,6 +5,7 @@ import {
   extractIssuer,
   processEntryToArray,
 } from '../credential-utils.js'
+import { describe, expect, it } from 'vitest'
 
 describe('@veramo/utils credential utils', () => {
   it('processEntryToArray', () => {

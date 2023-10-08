@@ -13,10 +13,9 @@ import didCommPacking from '../../../__tests__/shared/didCommPacking.js'
 import messageHandler from '../../../__tests__/shared/messageHandler.js'
 import utils from '../../../__tests__/shared/utils.js'
 
-import { jest } from '@jest/globals'
+import { vi, describe, expect, it } from 'vitest'
 
 const JEST_TIMEOUT = 3 * 60 * 1000
-jest.setTimeout(JEST_TIMEOUT)
 
 describe('Browser integration tests', () => {
   describe('shared tests', () => {

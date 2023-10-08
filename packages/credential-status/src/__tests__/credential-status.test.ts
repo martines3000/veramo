@@ -4,7 +4,7 @@ import { DIDResolverPlugin } from '../../../did-resolver/src'
 import { CredentialStatusPlugin } from '../credential-status.js'
 import { DIDDocument, DIDResolutionOptions, DIDResolutionResult, Resolvable } from 'did-resolver'
 import { StatusMethod } from 'credential-status'
-import { jest } from '@jest/globals'
+import { vi, describe, expect, it } from 'vitest'
 
 describe('@veramo/credential-status', () => {
   const referenceDoc: DIDDocument = { id: 'did:example:1234' }
@@ -23,7 +23,7 @@ describe('@veramo/credential-status', () => {
   it('should check the credential status', async () => {
     expect.assertions(3)
     const expectedResult = { revoked: false }
-    const checkStatus = jest.fn(async () => expectedResult)
+    const checkStatus = vi.fn(async () => expectedResult)
     const agent = createAgent<ICredentialStatusVerifier>({
       plugins: [
         new CredentialStatusPlugin({
@@ -45,17 +45,15 @@ describe('@veramo/credential-status', () => {
   it('should check the credential status using DID resolver to get the issuer doc', async () => {
     expect.assertions(4)
     const expectedResult = { revoked: false }
-    const checkStatus = jest.fn(async () => expectedResult)
+    const checkStatus = vi.fn(async () => expectedResult)
     const fakeResolver: Resolvable = {
-      resolve: jest.fn(
-        async (didUrl: string, options?: DIDResolutionOptions): Promise<DIDResolutionResult> => {
-          return {
-            didDocument: { id: didUrl },
-            didResolutionMetadata: {},
-            didDocumentMetadata: {},
-          }
-        },
-      ),
+      resolve: vi.fn(async (didUrl: string, options?: DIDResolutionOptions): Promise<DIDResolutionResult> => {
+        return {
+          didDocument: { id: didUrl },
+          didResolutionMetadata: {},
+          didDocumentMetadata: {},
+        }
+      }),
     }
     const agent = createAgent({
       plugins: [
@@ -78,7 +76,7 @@ describe('@veramo/credential-status', () => {
 
   it('should not perform status check if no `credentialStatus` present', async () => {
     expect.assertions(2)
-    const checkStatus = jest.fn()
+    const checkStatus = vi.fn()
     const agent = createAgent({
       plugins: [
         new CredentialStatusPlugin({
@@ -105,7 +103,7 @@ describe('@veramo/credential-status', () => {
     const agent = createAgent({
       plugins: [
         new CredentialStatusPlugin({
-          NotCalled: jest.fn() as StatusMethod,
+          NotCalled: vi.fn() as StatusMethod,
         }),
       ],
     })

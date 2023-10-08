@@ -1,6 +1,7 @@
 import { ContextDoc } from '../types.js'
 import { LdContextLoader } from '../ld-context-loader.js'
 import { LdDefaultContexts } from '../ld-default-contexts.js'
+import { describe, expect, it } from 'vitest'
 
 describe('credential-ld context loader', () => {
   const customContext: Record<string, ContextDoc> = {

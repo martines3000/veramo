@@ -25,9 +25,7 @@ import {
 } from '../../../credential-ld/src'
 import { Resolver } from 'did-resolver'
 import { getResolver as ethrDidResolver } from 'ethr-did-resolver'
-import { jest } from '@jest/globals'
-
-jest.setTimeout(300000)
+import { beforeAll, describe, expect, it } from 'vitest'
 
 const customContext: Record<string, ContextDoc> = {
   'custom:example.context': {
@@ -112,11 +110,13 @@ describe('credential-w3c full flow', () => {
       credential,
       proofFormat: 'lds',
     })
-    const modifiedCredential: VerifiableCredential = { ...verifiableCredential1, issuer: { id: 'did:fake:wrong' }}
+    const modifiedCredential: VerifiableCredential = {
+      ...verifiableCredential1,
+      issuer: { id: 'did:fake:wrong' },
+    }
     const verifyResult = await agent.verifyCredential({ credential: modifiedCredential })
     expect(verifyResult.verified).toBeFalsy()
   })
-
 
   it('fails the verification of a jwt credential with false value outside of proof', async () => {
     const verifiableCredential1 = await agent.createVerifiableCredential({
@@ -124,7 +124,10 @@ describe('credential-w3c full flow', () => {
       proofFormat: 'jwt',
     })
 
-    const modifiedCredential: VerifiableCredential = { ...verifiableCredential1, issuer: { id: 'did:fake:wrong' }}
+    const modifiedCredential: VerifiableCredential = {
+      ...verifiableCredential1,
+      issuer: { id: 'did:fake:wrong' },
+    }
     const verifyResult = await agent.verifyCredential({ credential: modifiedCredential })
 
     expect(verifyResult.verified).toBeFalsy()
@@ -189,7 +192,6 @@ describe('credential-w3c full flow', () => {
 
     expect(response.verified).toBe(true)
   })
-
 
   it('fails the verification of an expired credential', async () => {
     const presentationJWT =

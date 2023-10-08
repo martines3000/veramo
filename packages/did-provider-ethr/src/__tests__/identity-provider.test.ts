@@ -4,6 +4,7 @@
 // import { Identifier } from '../identifier'
 // import { createJWT, decodeJWT, verifyJWT } from 'did-jwt'
 // const fs = require('fs')
+import { describe, it, expect } from 'vitest'
 
 describe('dummy', () => {
   const a = 100

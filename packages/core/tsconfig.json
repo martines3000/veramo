@@ -1,10 +1,10 @@
 {
-  "extends": "../tsconfig.settings.json",
+  "extends":  "../tsconfig.settings.json",
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "build"
   },
-  "include": ["./**/*.ts"],
+  "include": ["./**/*.ts", "../credential-ld/vite.config.ts"],
   "references": [
     {
       "path": "../core-types"

@@ -4,7 +4,7 @@ import { IContext, MessageTypes, W3cMessageHandler } from '../message-handler.js
 // @ts-ignore
 import pkg from 'blakejs'
 const { blake2bHex } = pkg
-import { jest } from '@jest/globals'
+import { vi, describe, expect, it } from 'vitest'
 
 describe('@veramo/credential-w3c', () => {
   const handler = new W3cMessageHandler()
@@ -14,10 +14,10 @@ describe('@veramo/credential-w3c', () => {
 
   const context: IContext = {
     agent: {
-      getSchema: jest.fn(),
-      execute: jest.fn(),
-      availableMethods: jest.fn(),
-      emit: jest.fn(),
+      getSchema: vi.fn(),
+      execute: vi.fn(),
+      availableMethods: vi.fn(),
+      emit: vi.fn(),
       resolveDid: async (args?): Promise<DIDResolutionResult> => {
         if (!args?.didUrl) throw Error('DID required')
 
@@ -66,12 +66,12 @@ describe('@veramo/credential-w3c', () => {
           }
         }
       },
-      createVerifiableCredential: jest.fn(),
-      createVerifiablePresentation: jest.fn(),
-      verifyCredential: jest.fn(),
-      verifyPresentation: jest.fn(),
-      getDIDComponentById: jest.fn(),
-    }
+      createVerifiableCredential: vi.fn(),
+      createVerifiablePresentation: vi.fn(),
+      verifyCredential: vi.fn(),
+      verifyPresentation: vi.fn(),
+      getDIDComponentById: vi.fn(),
+    },
   } as IAgentContext<IResolver & ICredentialPlugin>
 
   it('should reject unknown message type', async () => {

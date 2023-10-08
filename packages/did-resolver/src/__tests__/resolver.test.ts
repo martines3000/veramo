@@ -1,5 +1,6 @@
 import { DIDResolverPlugin } from '../resolver.js'
 import { Resolver } from 'did-resolver'
+import { describe, expect, it } from 'vitest'
 
 describe('@veramo/did-resolver', () => {
   it('should throw error when misconfigured', () => {

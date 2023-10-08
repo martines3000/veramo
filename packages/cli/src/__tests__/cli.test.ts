@@ -1,10 +1,9 @@
-import { veramo } from '../createCommand.js'
-import { jest } from '@jest/globals'
+import { beforeAll, afterAll, vi, describe, expect, it } from 'vitest'
 import { createObjects } from '../lib/objectCreator'
 import { getConfig } from '../setup'
 
 describe('cli version', () => {
-  const writeMock = jest.fn()
+  const writeMock = vi.fn()
 
   beforeAll(() => {
     // veramo
@@ -13,7 +12,7 @@ describe('cli version', () => {
   })
 
   afterAll(() => {
-    jest.clearAllMocks()
+    vi.clearAllMocks()
   })
 
   it('should load the dbConnection', async () => {
